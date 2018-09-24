@@ -36,11 +36,8 @@ public class Token extends HttpServlet {
         Cookie sessionCookie = Utility.getCookie(cookies, "SESSIONID");
         if (sessionCookie != null) {
             String tokenId = UUID.randomUUID().toString();
-            
-            Cookie c1 = new Cookie("CSRF-TOKEN", tokenId);
-            c1.setMaxAge(60 * 60);
-            c1.setSecure(true);
-            response.addCookie(c1);
+                        
+            response.addHeader("Set-Cookie", "CSRF-TOKEN="+ tokenId + ";");
             
             response.setContentType("application/json;charset=UTF-8");
             PrintWriter out = response.getWriter();
